@@ -24,3 +24,8 @@ myenv\Scripts\activate
 set FLASK_APP=app.py
 # Step 3: Run the Flask application
 flask run
+
+![Screenshot (174)](https://github.com/user-a![Screenshot (178)](https://github.com/user-attachments/assets/396a18b2-3295-4d80-89e1-988a2f100443)
+ttachments/assets/be8fbbb6-9ad0-4b0a-a304-845772cfa3b6)
+![Screenshot (177)](https://github.com/user-attachments/assets/0bfeffea-f477-4154-a64c-e2747365a636)
+![Screenshot (175)](https://github.com/user-attachments/assets/62d37387-b6c2-4b05-b562-170d7ad1d82c)
