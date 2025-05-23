@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Translation Result</title>
+    <style>
+        @font-face {
+            font-family: 'Noto Sans';
+            src: url('C:/Users/Dell/Downloads/Noto_Sans/NotoSans-VariableFont_wdth,wght.ttf');
+        }
+        body {
+            font-family: 'Noto Sans', sans-serif;
+        }
+    </style>
+    <style>
+        body {
+            font-family: 'Noto Sans', sans-serif;
+            background-color: #f4f7f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            width: 80%;
+            margin: 50px auto;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #3494ba;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+        }
+
+        .info {
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.2em;
+            line-height: 1.7em;
+            margin-bottom: 15px;
+            padding-left: 10px;
+            border-left: 4px solid #3494ba;
+            background-color: #eef5f9;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .info strong {
+            color: #0e1111;
+            font-size: 1.1em;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            background-color: #3494ba;
+            color: #fff;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        .button-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .download-btn {
+            background-color: #3494ba;
+            color: white;
+            font-size: 1.1em;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .download-btn:hover {
+            background-color: #267893;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Translation Result</h1>
+        <div class="info">
+            <p><strong>Original Text:</strong></p>
+            <p>{{original_text}}</p>
+        </div>
+
+        <div class="info">
+            <p><strong>Translated Text:</strong></p>
+            <p>{{out_text}}</p>
+        </div>
+
+        <div class="info">
+            <p><strong>Detected Language:</strong> {{input_language}}</p>
+        </div>
+
+        <div class="info">
+            <p><strong>Target Language:</strong> {{target_language}}</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>my translater</title>
+    <style>
+        body {
+            background-image: url("{{url_for('static',filename='9.jpg')}}");
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            font-family: 'Georgia', 'serif';
+            color: #2c2c2c;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            text-align: center;
+            color: #01372d;
+            margin-bottom: 30px;
+        }
+
+        .container {
+            display: flex;
+            max-width: 600px;
+            width: 80%;
+            background-color: rgb(254, 231, 183);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .form-side {
+            flex: 1;
+            padding: 40px;
+        }
+
+        form {
+            background-color: transparent;
+            padding: 0;
+            width: 100%;
+        }
+
+        label {
+            font-size: 1.1em;
+            margin-top: 10px;
+            color: #5c4033;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            color: #333;
+            background-color: #fff8e7;
+        }
+
+        textarea {
+            resize: none;
+            height: 100px;
+        }
+
+        button {
+            background-color: #5c4033;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.2em;
+            width: 50%;
+            transition: background-color 0.3s ease;
+            align-items: center;
+        }
+
+        button:hover {
+            background-color: #8f6954;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+        h2 {
+            font-size: 2em;
+            text-align: center;
+            margin-left: 10%;
+            margin-bottom: 20px;
+            color: #5c4033;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #bfa68d;
+        }
+
+        .tab {
+            flex: 1;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #5c4033;
+            padding: 10px;
+            text-align: center;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .tab.active {
+            background-color: rgba(255, 255, 255, 0.2);
+            font-weight: bold;
+            color: #2c2c2c;
+        }
+
+        .tab:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+            color: #2c2c2c;
+        }
+
+        .input-group {
+            display: none;
+        }
+
+        .input-group.active {
+            display: block;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 10px 0;
+            color: #d9534f;
+            font-weight: bold;
+        }
+
+        ul li {
+            margin-bottom: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            h2 {
+                font-size: 1em;
+            }
+
+            form {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1> 🅼︎🆈︎ 🆃︎🆁︎🅰︎🅽︎🆂︎🅻︎🅰︎🆃︎🅾︎🆁︎</h1>
+    </div>
+    <div class="container">
+        <!-- Form Side -->
+        <div class="form-side">
+            <div>
+                <div>
+                    <i>
+                        <img style="margin-bottom: -90px; margin-left: 3px;" src="{{ url_for('static', filename='image/2.png') }}" alt='Logo' width="70px">
+                        <h2 style="text-align: center;">Speak Freely, Understand Fully</h2>
+                    </i>
+                </div>
+            </div>
+            <form action="/translate" method="post" enctype="multipart/form-data">
+                <div class="tabs">
+                    <div class="tab active" data-tab="url">URL</div>
+                    <div class="tab" data-tab="pdf">PDF</div>
+                    <div class="tab" data-tab="text">Text</div>
+                </div>
+                <input type="hidden" id="input_type" name="input_type" value="url">
+
+                <!-- URL Input -->
+                <div id="url" class="input-group active">
+                    <div class="form-group">
+                        <label for="web_url">Enter URL:</label>
+                        <input type="text" id="web_url" name="web_url" placeholder="Enter website URL">
+                    </div>
+                </div>
+                <!-- PDF Input -->
+                <div id="pdf" class="input-group">
+                    <div class="form-group">
+                        <label for="pdf_file">Upload PDF:</label>
+                        <input type="file" id="pdf_file" name="pdf_file" accept=".pdf">
+                    </div>
+                </div>
+                <!-- Text Input -->
+                <div id="text" class="input-group">
+                    <div class="form-group">
+                        <label for="text_input">Text:</label>
+                        <textarea id="text_input" name="text" placeholder="Enter the text for translation"></textarea>
+                    </div>
+                </div>
+                <center><button type="submit">Translate</button></center>
+            </form>
+
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+            {% endwith %}
+        </div>
+    </div>
+
+    <script>
+        const tabs = document.querySelectorAll('.tab');
+        const inputGroups = document.querySelectorAll('.input-group');
+        const inputType = document.getElementById('input_type');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                inputGroups.forEach(group => group.classList.remove('active'));
+
+                tab.classList.add('active');
+                document.getElementById(tab.dataset.tab).classList.add('active');
+                inputType.value = tab.dataset.tab;
+            });
+        });
+    </script>
+</body>
+</html>

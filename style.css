@@ -1,0 +1,86 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background: url("background.jpg") no-repeat center center fixed;
+    background-size: cover;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #f0f0f0;
+}
+
+.history-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.history-table th,
+.history-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.history-table th {
+    background-color: rgba(220, 215, 179, 0.9);
+    color: #03033e;
+    font-weight: bold;
+}
+
+.history-table td {
+    color: #fff;
+}
+
+.history-table tr:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.action-buttons {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.action-buttons a {
+    text-decoration: none;
+    padding: 12px 20px;
+    background-color: #051c4c;
+    color: #fff;
+    border-radius: 5px;
+    margin: 10px;
+    font-size: 1.2em;
+    transition: background-color 0.3s ease;
+}
+
+.action-buttons a:hover {
+    background-color: #037496;
+}
+
+@media (max-width: 768px) {
+    .history-table th,
+    .history-table td {
+        padding: 10px;
+    }
+
+    .action-buttons a {
+        font-size: 1em;
+        padding: 10px 15px;
+    }
+}

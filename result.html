@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Translation Result</title>
+    <style>
+        body {
+            background-image: url("{{url_for('static',filename='8.jpg')}}");
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            color: #FFFFFF;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            overflow-y: scroll; /* Ensures scrolling */
+        }
+
+        /* Hide scrollbar while keeping scrolling functional */
+        ::-webkit-scrollbar {
+            width: 0px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: transparent;
+        }
+        body {
+            scrollbar-width: none; /* Firefox */
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .result-box {
+            background-color: rgba(169, 212, 224, 0.1);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(158, 222, 243, 0.3);
+            max-width: 900px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            word-wrap: break-word;
+            white-space: pre-wrap;
+        }
+
+        .info {
+            text-align: left;
+            margin-bottom: 10px;
+            width: 100%;
+        }
+
+        /* Align Detected Language and Target Language side by side */
+        .language-container {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 600px;
+            margin-bottom: 20px;
+        }
+
+        .language-container .info {
+            flex: 1;
+            text-align: center;
+        }
+
+        p, h2 {
+            font-size: 1.2em;
+            line-height: 1.6em;
+            margin: 0;
+        }
+
+        strong {
+            color: #0f4a65;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            width: 100%;
+        }
+
+        .translate-btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: #0f4a65;
+            color: white;
+            border-radius: 8px;
+            font-size: 1.2em;
+            font-weight: bold;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .translate-btn:hover {
+            background-color: #037496;
+            transform: scale(1.05);
+        }
+
+        .popup-menu {
+            display: none;
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background: #FFF5E1;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 10px;
+            z-index: 100;
+        }
+
+        .popup-menu a {
+            display: block;
+            color: #000;
+            text-decoration: none;
+            padding: 10px;
+        }
+
+        .popup-menu a:hover {
+            background-color: #f2f2f2;
+        }
+
+        .menu-toggle {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            .result-box {
+                padding: 15px;
+            }
+
+            .language-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .language-container .info {
+                text-align: center;
+                margin-bottom: 10px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .result-box {
+                padding: 10px;
+            }
+
+            .translate-btn {
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Popup Menu Toggle Button -->
+    <button class="menu-toggle" onclick="toggleMenu()" aria-haspopup="true" aria-expanded="false">⋮</button>
+
+    <!-- Popup Menu -->
+    <div id="popup-menu" class="popup-menu" role="menu">
+        <a href="/history" role="menuitem">History</a>
+    </div>
+
+    <div class="result-box">
+        <h1>Translation Result</h1>
+        <div class="info">
+            <p><strong>Original Text:</strong> {{ original_text }}</p>
+        </div>
+        <div class="info">
+            <p><strong>Translated Text:</strong> {{ translated_text }}</p>
+        </div>
+
+        <!-- Side by side Detected Language and Target Language -->
+        <div class="language-container">
+            <div class="info">
+                <p><strong>Detected Language:</strong> {{ input_language }}</p>
+            </div>
+            <div class="info">
+                <p><strong>Target Language:</strong> {{ target_language }}</p>
+            </div>
+        </div>
+
+        <!-- Centered "Translate Another" Button -->
+        <div class="button-container">
+            <a href="/" class="translate-btn">Translate Another</a>
+        </div>
+    </div>
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('popup-menu');
+            const isVisible = menu.style.display === 'block';
+            menu.style.display = isVisible ? 'none' : 'block';
+        }
+
+        function showReferenceInput() {
+            const testAccuracy = document.getElementById('test_accuracy').value;
+            const referenceInput = document.getElementById('reference_input');
+            referenceInput.style.display = testAccuracy === 'yes' ? 'block' : 'none';
+        }
+
+        document.addEventListener('click', (e) => {
+            const menu = document.getElementById('popup-menu');
+            const button = e.target.closest('.menu-toggle');
+            if (!menu.contains(e.target) && !button) {
+                menu.style.display = 'none';
+            }
+        });
+
+        // Initialize visibility for the reference input
+        window.onload = showReferenceInput;
+    </script>
+</body>
+</html>
